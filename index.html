@@ -2273,7 +2273,11 @@
           <h3 style="font-family:var(--font-display);font-weight:800;font-size:1.5rem;text-transform:uppercase;color:var(--charcoal);margin-bottom:8px;letter-spacing:0.03em">Project Request Form</h3>
           <p style="font-size:0.9rem;color:var(--gray-600)">Fill out the form below and we'll reach out to schedule your free estimate.</p>
         </div>
-        <form onsubmit="handleSubmit(event)">
+        <form onsubmit="handleSubmit(event)" id="contactForm">
+          <input type="hidden" name="access_key" value="bed53190-cadf-46d7-a3ba-68350f0495db">
+          <input type="hidden" name="subject" value="New Estimate Request — Prosper Valley Electric">
+          <input type="hidden" name="from_name" value="PVE Website">
+          <input type="checkbox" name="botcheck" style="display:none">
           <div class="form-row">
             <div class="form-group">
               <label for="fname">First Name</label>
@@ -2408,10 +2412,31 @@
     document.querySelectorAll('.page.active .fade-up').forEach(el => observer.observe(el));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    document.querySelector('#page-contact .contact-form form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form)
+      });
+      const data = await res.json();
+      if (data.success) {
+        form.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send Request';
+        alert('Something went wrong. Please try again or call us directly.');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Send Request';
+      alert('Something went wrong. Please try again or call us directly.');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
