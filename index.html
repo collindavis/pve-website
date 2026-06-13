@@ -1604,6 +1604,7 @@
       <ul class="nav-links">
         <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
         <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+        <li><a href="service-areas.html">Service Areas</a></li>
         <li><a onclick="showPage('about')" id="nav-about">About</a></li>
       </ul>
       <a onclick="showPage('contact')" id="nav-contact" class="nav-cta">
@@ -1622,6 +1623,7 @@
 <div class="mobile-menu" id="mobile-menu">
   <a onclick="showPage('home');closeMenu()">Home</a>
   <a onclick="showPage('services');closeMenu()">Services</a>
+  <a href="service-areas.html">Service Areas</a>
   <a onclick="showPage('about');closeMenu()">About</a>
   <a onclick="showPage('contact');closeMenu()">Request Estimate</a>
 </div>
@@ -2489,8 +2491,17 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    observeFadeUps();
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById('page-' + hash)) {
+      showPage(hash);
+    } else {
+      observeFadeUps();
+    }
     initReviews();
+  });
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById('page-' + hash)) showPage(hash);
   });
 
   function initReviews() {

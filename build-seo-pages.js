@@ -396,20 +396,20 @@ ${schemasHTML}
 
 <nav id="navbar">
   <div class="nav-inner">
-    <a class="nav-logo" href="${rootPath}">
+    <a class="nav-logo" href="${rootPath}index.html">
       <img class="nav-logo-img" src="${rootPath}pve-circle-logo.jpg" alt="Prosper Valley Electric">
       <div class="nav-logo-text">Prosper Valley<span>Electric</span></div>
     </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="${rootPath}">Home</a></li>
-        <li><a href="${rootPath}#services">Services</a></li>
-        <li><a href="${rootPath}#about">About</a></li>
-        <li><a href="${rootPath}#contact">Contact</a></li>
+        <li><a href="${rootPath}index.html">Home</a></li>
+        <li><a href="${rootPath}index.html#services">Services</a></li>
+        <li><a href="${rootPath}service-areas.html">Service Areas</a></li>
+        <li><a href="${rootPath}index.html#about">About</a></li>
       </ul>
-      <a class="nav-cta" href="${rootPath}#contact">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        Free Estimate
+      <a class="nav-cta" href="${rootPath}index.html#contact">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-3-3v6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Request Estimate
       </a>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -419,17 +419,17 @@ ${schemasHTML}
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="${rootPath}">Home</a>
-  <a href="${rootPath}#services">Services</a>
-  <a href="${rootPath}#about">About</a>
-  <a href="${rootPath}#contact">Contact</a>
-  <a href="${rootPath}#contact" style="color:var(--orange)">Request Estimate</a>
+  <a href="${rootPath}index.html">Home</a>
+  <a href="${rootPath}index.html#services">Services</a>
+  <a href="${rootPath}service-areas.html">Service Areas</a>
+  <a href="${rootPath}index.html#about">About</a>
+  <a href="${rootPath}index.html#contact" style="color:var(--orange)">Request Estimate</a>
 </div>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="hero-breadcrumb">
-    <a href="${rootPath}">Prosper Valley Electric</a>
+    <a href="${rootPath}index.html">Prosper Valley Electric</a>
     <span>›</span>
     <a href="#">${escapeHTML(serviceLabel)}</a>
     <span>›</span>
@@ -473,7 +473,7 @@ ${schemasHTML}
             <div class="aside-stat-text"><strong>Written Estimates</strong>No surprises on the invoice</div>
           </div>
         </div>
-        <a class="aside-cta" href="${rootPath}#contact">
+        <a class="aside-cta" href="${rootPath}index.html#contact">
           Request Estimate
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -490,7 +490,7 @@ ${faqHTML}
 <div class="cta-banner">
   <h2>Ready to Get Started?</h2>
   <p>${escapeHTML(meta.ctaText) || `Prosper Valley Electric serves ${escapeHTML(slugToLabel(locationSlug))} and the surrounding Upper Valley. Locally based, licensed in VT &amp; NH.`}</p>
-  <a class="btn-dark" href="${rootPath}#contact">
+  <a class="btn-dark" href="${rootPath}index.html#contact">
     Request Estimate Now
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
@@ -504,19 +504,19 @@ ${faqHTML}
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="${rootPath}#services">New Construction Wiring</a>
-      <a href="${rootPath}#services">Remodels &amp; Renovations</a>
-      <a href="${rootPath}#services">Generator Installation</a>
-      <a href="${rootPath}#services">EV Chargers</a>
-      <a href="${rootPath}#services">Panel Upgrades</a>
-      <a href="${rootPath}#services">Smart Home &amp; Lighting</a>
+      <a href="${rootPath}index.html#services">New Construction Wiring</a>
+      <a href="${rootPath}index.html#services">Remodels &amp; Renovations</a>
+      <a href="${rootPath}index.html#services">Generator Installation</a>
+      <a href="${rootPath}index.html#services">EV Chargers</a>
+      <a href="${rootPath}index.html#services">Panel Upgrades</a>
+      <a href="${rootPath}index.html#services">Smart Home &amp; Lighting</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="${rootPath}">Home</a>
-      <a href="${rootPath}#about">About Us</a>
-      <a href="${rootPath}#contact">Contact</a>
-      <a href="${rootPath}#contact">Request Estimate</a>
+      <a href="${rootPath}index.html">Home</a>
+      <a href="${rootPath}index.html#about">About Us</a>
+      <a href="${rootPath}index.html#contact">Contact</a>
+      <a href="${rootPath}index.html#contact">Request Estimate</a>
       <h4 style="margin-top:20px">Contact</h4>
       <a href="tel:+18022349636">(802) 234-9636</a>
       <a href="mailto:prospervalleyelectric@gmail.com">prospervalleyelectric@gmail.com</a>
@@ -539,7 +539,7 @@ ${faqHTML}
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
     Call Now
   </a>
-  <a class="sticky-estimate" href="${rootPath}#contact">
+  <a class="sticky-estimate" href="${rootPath}index.html#contact">
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     Get Estimate
   </a>
