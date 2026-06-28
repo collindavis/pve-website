@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EV Charger Installation in Norwich, VT | Prosper Valley Electric</title>
 <meta name="description" content="Licensed electricians installing Level 2 EV chargers in Norwich, VT. Serving Upper Valley homeowners and businesses. REQUEST ESTIMATE NOW.">
-<link rel="canonical" href="https://prospervalleyelectric.com/services/ev-charger-installation/norwich-vt.html">
+<link rel="canonical" href="https://prospervalleyelectric.com/services/ev-charger-installation/norwich-vt">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -78,6 +78,40 @@
         "@type": "Answer",
         "text": "Yes. We work with property managers, businesses, and landlords on multi-unit and commercial-grade charging installations. Contact us for a commercial quote."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you serve historic and higher-end homes in Norwich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Norwich has many well-kept historic and higher-end homes where careful, code-compliant work matters. We bring that standard to every Norwich project."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://prospervalleyelectric.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Service Areas",
+      "item": "https://prospervalleyelectric.com/service-areas"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "EV Charger Installation in Norwich, VT",
+      "item": "https://prospervalleyelectric.com/services/ev-charger-installation/norwich-vt"
     }
   ]
 }
@@ -199,6 +233,23 @@
   .faq-a.open { display: block; }
   .faq-a p { font-size: 0.97rem; line-height: 1.75; color: rgba(255,255,255,0.5); }
 
+  /* CONTEXTUAL GUIDE LINK */
+  .guide-link { display: flex; align-items: center; gap: 12px; margin-top: 24px; padding: 16px 20px; background: var(--orange-glow); border: 1px solid rgba(232,130,12,0.25); border-radius: var(--radius); text-decoration: none; color: var(--charcoal); transition: border-color var(--transition), background var(--transition); }
+  .guide-link:hover { border-color: var(--orange); background: rgba(232,130,12,0.16); }
+  .guide-link svg { color: var(--orange); flex-shrink: 0; }
+  .guide-link span { font-size: 0.95rem; line-height: 1.4; color: var(--gray-600); }
+  .guide-link strong { color: var(--charcoal); font-weight: 600; }
+
+  /* MORE SERVICES (same-town cross-links) */
+  .more-services { background: var(--warm-white); padding: 72px 32px; border-bottom: 1px solid var(--gray-200); }
+  .more-services .container { max-width: 1120px; margin: 0 auto; }
+  .more-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+  .more-services-grid a { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 6px; padding: 18px 20px; text-decoration: none; color: var(--charcoal); font-family: var(--font-display); font-weight: 700; font-size: 0.98rem; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.15; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); }
+  .more-services-grid a::after { content: '→'; color: var(--orange); font-size: 1.1rem; transition: transform var(--transition); }
+  .more-services-grid a:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); border-color: rgba(232,130,12,0.3); }
+  .more-services-grid a:hover::after { transform: translateX(3px); }
+  @media (max-width: 760px) { .more-services-grid { grid-template-columns: 1fr; } }
+
   /* CTA BANNER */
   .cta-banner { background: var(--orange); padding: 88px 32px; text-align: center; position: relative; overflow: hidden; }
   .cta-banner::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, transparent, transparent 22px, rgba(0,0,0,0.03) 22px, rgba(0,0,0,0.03) 23px); }
@@ -252,18 +303,18 @@
 
 <nav id="navbar">
   <div class="nav-inner">
-    <a class="nav-logo" href="../../index.html">
-      <img class="nav-logo-img" src="../../pve-circle-logo.jpg" alt="Prosper Valley Electric">
+    <a class="nav-logo" href="/">
+      <img class="nav-logo-img" src="/pve-circle-logo.jpg" alt="Prosper Valley Electric">
       <div class="nav-logo-text">Prosper Valley<span>Electric</span></div>
     </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="../../index.html">Home</a></li>
-        <li><a href="../../index.html#services">Services</a></li>
-        <li><a href="../../service-areas.html">Service Areas</a></li>
-        <li><a href="../../index.html#about">About</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/service-areas">Service Areas</a></li>
+        <li><a href="/#about">About</a></li>
       </ul>
-      <a class="nav-cta" href="../../index.html#contact">
+      <a class="nav-cta" href="/#contact">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-3-3v6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Request Estimate
       </a>
@@ -275,19 +326,19 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="../../index.html">Home</a>
-  <a href="../../index.html#services">Services</a>
-  <a href="../../service-areas.html">Service Areas</a>
-  <a href="../../index.html#about">About</a>
-  <a href="../../index.html#contact" style="color:var(--orange)">Request Estimate</a>
+  <a href="/">Home</a>
+  <a href="/#services">Services</a>
+  <a href="/service-areas">Service Areas</a>
+  <a href="/#about">About</a>
+  <a href="/#contact" style="color:var(--orange)">Request Estimate</a>
 </div>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="hero-breadcrumb">
-    <a href="../../index.html">Prosper Valley Electric</a>
+    <a href="/">Prosper Valley Electric</a>
     <span>›</span>
-    <a href="#">EV Charger Installation</a>
+    <a href="/service-areas">EV Charger Installation</a>
     <span>›</span>
     Norwich, VT
   </div>
@@ -304,6 +355,7 @@
       <p class="seo-body-p">EV Charger Installation in Norwich, VT</p>
 <p class="seo-body-p">Norwich is one of the most active EV markets in the Upper Valley — and demand for home charging stations is growing fast. Whether you've just taken delivery of a new electric vehicle or you're planning ahead, charging at home on a standard 120V outlet means slow, overnight fills that often aren't enough for daily driving. A Level 2 charger changes that completely.</p>
 <p class="seo-body-p">Prosper Valley Electric installs Level 2 EV charging stations for homeowners and businesses throughout Norwich and the surrounding Upper Valley. We're a licensed, locally based electrical contractor out of Woodstock, VT — directly across the Connecticut River from Dartmouth and the Hanover plain — and we've built our reputation on clean installs, honest pricing, and showing up when we say we will.</p>
+      
     </div>
     <div class="seo-intro-aside">
       <div class="aside-card">
@@ -331,7 +383,7 @@
             <div class="aside-stat-text"><strong>Written Estimates</strong>No surprises on the invoice</div>
           </div>
         </div>
-        <a class="aside-cta" href="../../index.html#contact">
+        <a class="aside-cta" href="/#contact">
           Request Estimate
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -355,7 +407,7 @@
         <h2 class="seo-h2">Serving Norwich Homeowners and Businesses</h2>
         <div class="seo-body">
           <p class="seo-body-p">Norwich sits directly across the Connecticut River from Hanover, and many of its residents work at Dartmouth or Dartmouth Health. It's a highly educated, sustainability-minded community with strong EV adoption and a growing interest in whole-home energy upgrades. Norwich homes range from classic Vermont farmhouses to newer builds on the heights above the river — each with its own electrical considerations.</p>
-<p class="seo-body-p">We also serve nearby communities: <a href="../ev-charger-installation/hanover-nh.html" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,130,12,0.35);transition:border-color 0.2s">Hanover, NH</a>, <a href="../ev-charger-installation/white-river-junction-vt.html" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,130,12,0.35);transition:border-color 0.2s">White River Junction, VT</a>, <a href="../ev-charger-installation/hartford-vt.html" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,130,12,0.35);transition:border-color 0.2s">Hartford, VT</a>, and the rest of the Upper Valley.</p>
+<p class="seo-body-p">We also serve nearby communities: <a href="/services/ev-charger-installation/hanover-nh" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,130,12,0.35);transition:border-color 0.2s">Hanover, NH</a>, <a href="/services/ev-charger-installation/white-river-junction-vt" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,130,12,0.35);transition:border-color 0.2s">White River Junction, VT</a>, <a href="/services/ev-charger-installation/hartford-vt" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,130,12,0.35);transition:border-color 0.2s">Hartford, VT</a>, and the rest of the Upper Valley.</p>
         </div>
       </div>
     </section>
@@ -412,15 +464,35 @@
               <p>Yes. We work with property managers, businesses, and landlords on multi-unit and commercial-grade charging installations. Contact us for a commercial quote.</p>
             </div>
           </div>
+          <div class="faq-item" id="faq-5">
+            <button class="faq-q" onclick="toggleFaq(5)" aria-expanded="false">
+              <span>Do you serve historic and higher-end homes in Norwich?</span>
+              <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a" id="faq-a-5">
+              <p>Yes. Norwich has many well-kept historic and higher-end homes where careful, code-compliant work matters. We bring that standard to every Norwich project.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+<!-- MORE SERVICES IN THIS TOWN -->
+<section class="more-services">
+  <div class="container">
+    <div class="section-label">More in Norwich, VT</div>
+    <h2 class="seo-h2">Our Other Services in Norwich, VT</h2>
+    <div class="more-services-grid">
+      <a href="/services/residential-electrical/norwich-vt">Residential Electrical in Norwich, VT</a><a href="/services/commercial-electrical/norwich-vt">Commercial Electrical in Norwich, VT</a><a href="/services/panel-upgrades/norwich-vt">Panel Upgrades in Norwich, VT</a><a href="/services/generator-installation/norwich-vt">Generator Installation in Norwich, VT</a><a href="/services/smart-home-lighting/norwich-vt">Smart Home & Lighting in Norwich, VT</a>
+    </div>
+  </div>
+</section>
 
 <!-- CTA BANNER -->
 <div class="cta-banner">
   <h2>Ready to Get Started?</h2>
   <p>Ready to get started? Prosper Valley Electric serves Norwich, VT and the surrounding Upper Valley. We're locally based, licensed in both Vermont and New Hampshire, and we back every job with a written estimate and proper permits.</p>
-  <a class="btn-dark" href="../../index.html#contact">
+  <a class="btn-dark" href="/#contact">
     Request Estimate Now
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
@@ -434,19 +506,19 @@
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="../../index.html#services">New Construction Wiring</a>
-      <a href="../../index.html#services">Remodels &amp; Renovations</a>
-      <a href="../../index.html#services">Generator Installation</a>
-      <a href="../../index.html#services">EV Chargers</a>
-      <a href="../../index.html#services">Panel Upgrades</a>
-      <a href="../../index.html#services">Smart Home &amp; Lighting</a>
+      <a href="/#services">New Construction Wiring</a>
+      <a href="/#services">Remodels &amp; Renovations</a>
+      <a href="/#services">Generator Installation</a>
+      <a href="/#services">EV Chargers</a>
+      <a href="/#services">Panel Upgrades</a>
+      <a href="/#services">Smart Home &amp; Lighting</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="../../index.html">Home</a>
-      <a href="../../index.html#about">About Us</a>
-      <a href="../../index.html#contact">Contact</a>
-      <a href="../../index.html#contact">Request Estimate</a>
+      <a href="/">Home</a>
+      <a href="/#about">About Us</a>
+      <a href="/#contact">Contact</a>
+      <a href="/#contact">Request Estimate</a>
       <h4 style="margin-top:20px">Contact</h4>
       <a href="tel:+18022349636">(802) 234-9636</a>
       <a href="mailto:prospervalleyelectric@gmail.com">prospervalleyelectric@gmail.com</a>
@@ -455,7 +527,7 @@
   <div class="footer-service-areas">
     <h4>EV Charger Installation — Other Locations</h4>
     <div class="footer-area-links">
-      <a href="barnard-vt.html">Barnard, VT</a><a href="hanover-nh.html">Hanover, NH</a><a href="hartford-vt.html">Hartford, VT</a><a href="hartland-vt.html">Hartland, VT</a><a href="killington-vt.html">Killington, VT</a><a href="lebanon-nh.html">Lebanon, NH</a><a href="pomfret-vt.html">Pomfret, VT</a><a href="quechee-vt.html">Quechee, VT</a><a href="reading-vt.html">Reading, VT</a><a href="sharon-vt.html">Sharon, VT</a><a href="white-river-junction-vt.html">White River Junction, VT</a><a href="windsor-vt.html">Windsor, VT</a><a href="woodstock-vt.html">Woodstock, VT</a>
+      <a href="/services/ev-charger-installation/barnard-vt">Barnard, VT</a><a href="/services/ev-charger-installation/hanover-nh">Hanover, NH</a><a href="/services/ev-charger-installation/hartford-vt">Hartford, VT</a><a href="/services/ev-charger-installation/hartland-vt">Hartland, VT</a><a href="/services/ev-charger-installation/killington-vt">Killington, VT</a><a href="/services/ev-charger-installation/lebanon-nh">Lebanon, NH</a><a href="/services/ev-charger-installation/pomfret-vt">Pomfret, VT</a><a href="/services/ev-charger-installation/quechee-vt">Quechee, VT</a><a href="/services/ev-charger-installation/reading-vt">Reading, VT</a><a href="/services/ev-charger-installation/sharon-vt">Sharon, VT</a><a href="/services/ev-charger-installation/white-river-junction-vt">White River Junction, VT</a><a href="/services/ev-charger-installation/windsor-vt">Windsor, VT</a><a href="/services/ev-charger-installation/woodstock-vt">Woodstock, VT</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -469,7 +541,7 @@
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
     Call Now
   </a>
-  <a class="sticky-estimate" href="../../index.html#contact">
+  <a class="sticky-estimate" href="/#contact">
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     Get Estimate
   </a>

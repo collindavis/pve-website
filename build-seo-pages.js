@@ -43,6 +43,75 @@ const SERVICE_LABELS = {
   'smart-home-lighting': 'Smart Home & Lighting',
 };
 
+// Per-town, truthful, town-specific bonus FAQ. Adds genuinely unique content
+// to every page (and a unique FAQPage schema entry), reducing the templated
+// overlap between location pages within a service. Service-agnostic so it
+// reads naturally across all six service pages for a town.
+const TOWN_PROFILES = {
+  'woodstock-vt': {
+    q: 'Do you work on historic homes in the Woodstock village?',
+    a: "Yes. Woodstock's village has many historic homes where wiring has to be updated carefully and to code without compromising the character of the house. We do this kind of work regularly and Woodstock is our home base.",
+  },
+  'hartford-vt': {
+    q: 'Do you cover White River Junction, Wilder, and West Hartford?',
+    a: 'Yes. The town of Hartford includes the villages of White River Junction, Wilder, and West Hartford, and we serve all of them — from older downtown buildings to newer homes near the river.',
+  },
+  'white-river-junction-vt': {
+    q: 'Do you work on older downtown and mixed-use buildings in White River Junction?',
+    a: "Yes. White River Junction's downtown has a lot of older and mixed-use building stock. We handle the electrical side of renovations, tenant fit-ups, and residential upgrades throughout the village.",
+  },
+  'norwich-vt': {
+    q: 'Do you serve historic and higher-end homes in Norwich?',
+    a: 'Yes. Norwich has many well-kept historic and higher-end homes where careful, code-compliant work matters. We bring that standard to every Norwich project.',
+  },
+  'windsor-vt': {
+    q: 'Do you work on older homes in historic downtown Windsor?',
+    a: "Yes. Windsor — the “birthplace of Vermont” — has a lot of older housing stock that benefits from panel and wiring upgrades. We assess and modernize these systems safely.",
+  },
+  'quechee-vt': {
+    q: 'Do you service homes and condos in the Quechee Lakes area?',
+    a: 'Yes. Quechee has a mix of year-round homes and second homes and condos around Quechee Lakes. We coordinate access with owners and associations as needed.',
+  },
+  'hartland-vt': {
+    q: 'Do you cover all three Hartland villages and the surrounding rural areas?',
+    a: 'Yes. We serve Hartland, Hartland Four Corners, and North Hartland, along with the rural properties in between — including homes on long service runs and private wells.',
+  },
+  'barnard-vt': {
+    q: 'Can you reach rural and seasonal homes around Barnard and Silver Lake?',
+    a: 'Yes. Barnard is rural with many seasonal and second homes, some on dirt roads near Silver Lake. We handle rural access and long service runs, and we can advise on monitoring for homes that sit empty.',
+  },
+  'hanover-nh': {
+    q: 'Do you work in Dartmouth-area neighborhoods and along Lyme Road and Route 10?',
+    a: 'Yes. Hanover ranges from dense neighborhoods near Dartmouth and downtown to homes spread along Lyme Road and Route 10, and we work across all of them.',
+  },
+  'lebanon-nh': {
+    q: 'Do you handle both residential and commercial work in Lebanon?',
+    a: 'Yes. Lebanon is a commercial and medical hub as well as a residential community. We work on homes, businesses, and tenant spaces throughout the area.',
+  },
+  'killington-vt': {
+    q: 'Do you service vacation homes, condos, and short-term rentals in Killington?',
+    a: 'Yes. A large share of Killington properties are second homes, condos, and rentals that sit empty between visits. We coordinate access with owners and property managers, and we can advise on remotely monitored systems so you know your power and equipment are working even when you are not there.',
+  },
+  'pomfret-vt': {
+    q: "Can you reach homes on Pomfret's back roads and long private drives?",
+    a: 'Yes. Much of Pomfret sits along dirt roads and long private driveways, with homes set well back from the road. We handle long service runs and rural access regularly, and it is all factored into the written estimate up front.',
+  },
+  'reading-vt': {
+    q: 'Do you work on older rural homes around Felchville and greater Reading?',
+    a: 'Yes. Many Reading homes are older, rural, and on private wells, which often means aging service and undersized wiring. We assess what is there and bring it up to current code safely.',
+  },
+  'sharon-vt': {
+    q: 'Do you serve homes along the Route 14 and White River corridor in Sharon?',
+    a: 'Yes. We work throughout Sharon, from riverside homes along Route 14 to hillside properties on well and septic. We are a short drive from our Woodstock base.',
+  },
+};
+
+// Informational guides linked contextually from matching service pages
+const GUIDE_FOR_SERVICE = {
+  'generator-installation': { slug: 'generator-sizing-vermont', label: 'What size standby generator do you need for a Vermont home?' },
+  'panel-upgrades': { slug: 'panel-upgrade-cost-vermont', label: 'What does a 200-amp panel upgrade cost in Vermont?' },
+};
+
 function parseMarkdown(src) {
   const meta = {};
   // meta fields
@@ -119,20 +188,19 @@ function parseFAQ(body) {
 function applyInternalLinks(text, links, serviceSlug) {
   let result = text;
   for (const [phrase, href] of Object.entries(links)) {
-    // Convert absolute /services/ paths to relative from current page depth (../../)
+    // Resolve to root-absolute extensionless URLs (what Cloudflare serves)
     let resolvedHref = href;
     if (href.startsWith('/services/')) {
-      // e.g. /services/ev-charger-installation/woodstock-vt
-      // from current page at /services/{service}/{loc}.html, relative = ../ev-charger.../woodstock-vt.html
       const parts = href.replace('/services/', '').split('/');
       if (parts.length === 2) {
-        resolvedHref = `../${parts[0]}/${parts[1]}.html`;
+        // location page, e.g. /services/ev-charger-installation/woodstock-vt
+        resolvedHref = `/services/${parts[0]}/${parts[1]}`;
       } else if (parts.length === 1) {
-        // service index link - go to main site services page
-        resolvedHref = `../../#services`;
+        // service index link → main site services section
+        resolvedHref = `/#services`;
       }
     } else if (href === '/contact') {
-      resolvedHref = '../../#contact';
+      resolvedHref = '/#contact';
     }
     result = result.replace(
       new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
@@ -176,9 +244,47 @@ function renderBody(text, links, serviceSlug) {
 
 function generateHTML(meta, serviceSlug, locationSlug) {
   const serviceLabel = SERVICE_LABELS[serviceSlug] || serviceSlug;
-  const rootPath = '../../'; // relative to /services/{service}/
+  const townLabel = slugToLabel(locationSlug);
+  const canonical = `https://prospervalleyelectric.com/services/${serviceSlug}/${locationSlug}`;
 
-  const schemasHTML = meta.schemas.map(s => `<script type="application/ld+json">\n${s}\n</script>`).join('\n');
+  // Append the town-specific bonus FAQ (unique per town) to the visible list
+  const profile = TOWN_PROFILES[locationSlug];
+  if (profile && meta.faq) {
+    meta.faq = meta.faq.concat([{ q: profile.q, a: profile.a }]);
+  }
+
+  // Inject the bonus FAQ into the FAQPage JSON-LD, and add a BreadcrumbList schema
+  const schemaStrings = meta.schemas.map(s => {
+    if (profile && s.includes('"FAQPage"')) {
+      try {
+        const obj = JSON.parse(s);
+        obj.mainEntity.push({
+          '@type': 'Question',
+          name: profile.q,
+          acceptedAnswer: { '@type': 'Answer', text: profile.a },
+        });
+        return JSON.stringify(obj, null, 2);
+      } catch (e) { return s; }
+    }
+    return s;
+  });
+  const breadcrumbSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://prospervalleyelectric.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Service Areas', item: 'https://prospervalleyelectric.com/service-areas' },
+      { '@type': 'ListItem', position: 3, name: `${serviceLabel} in ${townLabel}`, item: canonical },
+    ],
+  }, null, 2);
+  schemaStrings.push(breadcrumbSchema);
+
+  const schemasHTML = schemaStrings.map(s => `<script type="application/ld+json">\n${s}\n</script>`).join('\n');
+
+  // Cross-links to the other services in this same town (internal link mesh)
+  const otherServices = SERVICES.filter(s => s !== serviceSlug)
+    .map(s => `<a href="/services/${s}/${locationSlug}">${SERVICE_LABELS[s]} in ${townLabel}</a>`)
+    .join('');
 
   const sectionsHTML = meta.sections.map(s => `
     <section class="seo-section">
@@ -211,11 +317,15 @@ function generateHTML(meta, serviceSlug, locationSlug) {
     </section>` : '';
 
   const openingHTML = renderBody(meta.opening, meta.internalLinks, serviceSlug);
+  const guide = GUIDE_FOR_SERVICE[serviceSlug];
+  const guideLinkHTML = guide
+    ? `<a class="guide-link" href="/guides/${guide.slug}"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.5C10.5 5.5 8.5 5 6 5a1 1 0 00-1 1v11a1 1 0 001 1c2.5 0 4.5.5 6 1.5 1.5-1 3.5-1.5 6-1.5a1 1 0 001-1V6a1 1 0 00-1-1c-2.5 0-4.5.5-6 1.5zm0 0V19"/></svg><span>Read our guide: <strong>${escapeHTML(guide.label)}</strong></span></a>`
+    : '';
 
   // Sibling location links for footer
   const siblingLinks = LOCATIONS
     .filter(l => l !== locationSlug)
-    .map(l => `<a href="${l}.html">${slugToLabel(l)}</a>`)
+    .map(l => `<a href="/services/${serviceSlug}/${l}">${slugToLabel(l)}</a>`)
     .join('');
 
   return `<!DOCTYPE html>
@@ -225,7 +335,7 @@ function generateHTML(meta, serviceSlug, locationSlug) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escapeHTML(meta.title)}</title>
 <meta name="description" content="${escapeHTML(meta.description)}">
-<link rel="canonical" href="https://prospervalleyelectric.com/services/${serviceSlug}/${locationSlug}.html">
+<link rel="canonical" href="https://prospervalleyelectric.com/services/${serviceSlug}/${locationSlug}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -347,6 +457,23 @@ ${schemasHTML}
   .faq-a.open { display: block; }
   .faq-a p { font-size: 0.97rem; line-height: 1.75; color: rgba(255,255,255,0.5); }
 
+  /* CONTEXTUAL GUIDE LINK */
+  .guide-link { display: flex; align-items: center; gap: 12px; margin-top: 24px; padding: 16px 20px; background: var(--orange-glow); border: 1px solid rgba(232,130,12,0.25); border-radius: var(--radius); text-decoration: none; color: var(--charcoal); transition: border-color var(--transition), background var(--transition); }
+  .guide-link:hover { border-color: var(--orange); background: rgba(232,130,12,0.16); }
+  .guide-link svg { color: var(--orange); flex-shrink: 0; }
+  .guide-link span { font-size: 0.95rem; line-height: 1.4; color: var(--gray-600); }
+  .guide-link strong { color: var(--charcoal); font-weight: 600; }
+
+  /* MORE SERVICES (same-town cross-links) */
+  .more-services { background: var(--warm-white); padding: 72px 32px; border-bottom: 1px solid var(--gray-200); }
+  .more-services .container { max-width: 1120px; margin: 0 auto; }
+  .more-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+  .more-services-grid a { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 6px; padding: 18px 20px; text-decoration: none; color: var(--charcoal); font-family: var(--font-display); font-weight: 700; font-size: 0.98rem; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.15; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); }
+  .more-services-grid a::after { content: '→'; color: var(--orange); font-size: 1.1rem; transition: transform var(--transition); }
+  .more-services-grid a:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); border-color: rgba(232,130,12,0.3); }
+  .more-services-grid a:hover::after { transform: translateX(3px); }
+  @media (max-width: 760px) { .more-services-grid { grid-template-columns: 1fr; } }
+
   /* CTA BANNER */
   .cta-banner { background: var(--orange); padding: 88px 32px; text-align: center; position: relative; overflow: hidden; }
   .cta-banner::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, transparent, transparent 22px, rgba(0,0,0,0.03) 22px, rgba(0,0,0,0.03) 23px); }
@@ -400,18 +527,18 @@ ${schemasHTML}
 
 <nav id="navbar">
   <div class="nav-inner">
-    <a class="nav-logo" href="${rootPath}index.html">
-      <img class="nav-logo-img" src="${rootPath}pve-circle-logo.jpg" alt="Prosper Valley Electric">
+    <a class="nav-logo" href="/">
+      <img class="nav-logo-img" src="/pve-circle-logo.jpg" alt="Prosper Valley Electric">
       <div class="nav-logo-text">Prosper Valley<span>Electric</span></div>
     </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="${rootPath}index.html">Home</a></li>
-        <li><a href="${rootPath}index.html#services">Services</a></li>
-        <li><a href="${rootPath}service-areas.html">Service Areas</a></li>
-        <li><a href="${rootPath}index.html#about">About</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/service-areas">Service Areas</a></li>
+        <li><a href="/#about">About</a></li>
       </ul>
-      <a class="nav-cta" href="${rootPath}index.html#contact">
+      <a class="nav-cta" href="/#contact">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-3-3v6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Request Estimate
       </a>
@@ -423,19 +550,19 @@ ${schemasHTML}
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="${rootPath}index.html">Home</a>
-  <a href="${rootPath}index.html#services">Services</a>
-  <a href="${rootPath}service-areas.html">Service Areas</a>
-  <a href="${rootPath}index.html#about">About</a>
-  <a href="${rootPath}index.html#contact" style="color:var(--orange)">Request Estimate</a>
+  <a href="/">Home</a>
+  <a href="/#services">Services</a>
+  <a href="/service-areas">Service Areas</a>
+  <a href="/#about">About</a>
+  <a href="/#contact" style="color:var(--orange)">Request Estimate</a>
 </div>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="hero-breadcrumb">
-    <a href="${rootPath}index.html">Prosper Valley Electric</a>
+    <a href="/">Prosper Valley Electric</a>
     <span>›</span>
-    <a href="#">${escapeHTML(serviceLabel)}</a>
+    <a href="/service-areas">${escapeHTML(serviceLabel)}</a>
     <span>›</span>
     ${escapeHTML(slugToLabel(locationSlug))}
   </div>
@@ -450,6 +577,7 @@ ${schemasHTML}
     <div class="seo-intro-text">
       <div class="section-label">${escapeHTML(serviceLabel)}</div>
       ${openingHTML}
+      ${guideLinkHTML}
     </div>
     <div class="seo-intro-aside">
       <div class="aside-card">
@@ -477,7 +605,7 @@ ${schemasHTML}
             <div class="aside-stat-text"><strong>Written Estimates</strong>No surprises on the invoice</div>
           </div>
         </div>
-        <a class="aside-cta" href="${rootPath}index.html#contact">
+        <a class="aside-cta" href="/#contact">
           Request Estimate
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -490,11 +618,22 @@ ${sectionsHTML}
 
 ${faqHTML}
 
+<!-- MORE SERVICES IN THIS TOWN -->
+<section class="more-services">
+  <div class="container">
+    <div class="section-label">More in ${escapeHTML(townLabel)}</div>
+    <h2 class="seo-h2">Our Other Services in ${escapeHTML(townLabel)}</h2>
+    <div class="more-services-grid">
+      ${otherServices}
+    </div>
+  </div>
+</section>
+
 <!-- CTA BANNER -->
 <div class="cta-banner">
   <h2>Ready to Get Started?</h2>
   <p>${escapeHTML(meta.ctaText) || `Prosper Valley Electric serves ${escapeHTML(slugToLabel(locationSlug))} and the surrounding Upper Valley. Locally based, licensed in VT &amp; NH.`}</p>
-  <a class="btn-dark" href="${rootPath}index.html#contact">
+  <a class="btn-dark" href="/#contact">
     Request Estimate Now
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
@@ -508,19 +647,19 @@ ${faqHTML}
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="${rootPath}index.html#services">New Construction Wiring</a>
-      <a href="${rootPath}index.html#services">Remodels &amp; Renovations</a>
-      <a href="${rootPath}index.html#services">Generator Installation</a>
-      <a href="${rootPath}index.html#services">EV Chargers</a>
-      <a href="${rootPath}index.html#services">Panel Upgrades</a>
-      <a href="${rootPath}index.html#services">Smart Home &amp; Lighting</a>
+      <a href="/#services">New Construction Wiring</a>
+      <a href="/#services">Remodels &amp; Renovations</a>
+      <a href="/#services">Generator Installation</a>
+      <a href="/#services">EV Chargers</a>
+      <a href="/#services">Panel Upgrades</a>
+      <a href="/#services">Smart Home &amp; Lighting</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="${rootPath}index.html">Home</a>
-      <a href="${rootPath}index.html#about">About Us</a>
-      <a href="${rootPath}index.html#contact">Contact</a>
-      <a href="${rootPath}index.html#contact">Request Estimate</a>
+      <a href="/">Home</a>
+      <a href="/#about">About Us</a>
+      <a href="/#contact">Contact</a>
+      <a href="/#contact">Request Estimate</a>
       <h4 style="margin-top:20px">Contact</h4>
       <a href="tel:+18022349636">(802) 234-9636</a>
       <a href="mailto:prospervalleyelectric@gmail.com">prospervalleyelectric@gmail.com</a>
@@ -543,7 +682,7 @@ ${faqHTML}
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
     Call Now
   </a>
-  <a class="sticky-estimate" href="${rootPath}index.html#contact">
+  <a class="sticky-estimate" href="/#contact">
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     Get Estimate
   </a>
@@ -608,6 +747,7 @@ function escapeHTML(str) {
 // Generate all pages
 let generated = 0;
 let errors = 0;
+const pageUrls = [];
 
 for (const service of SERVICES) {
   for (const location of LOCATIONS) {
@@ -622,6 +762,7 @@ for (const service of SERVICES) {
       const html = generateHTML(meta, service, location);
       const outFile = path.join(OUT_BASE, service, `${location}.html`);
       fs.writeFileSync(outFile, html, 'utf8');
+      pageUrls.push(`/services/${service}/${location}`);
       console.log(`  ✓ ${service}/${location}.html`);
       generated++;
     } catch (err) {
@@ -630,5 +771,26 @@ for (const service of SERVICES) {
     }
   }
 }
+
+// ── Sitemap ──────────────────────────────────────────────────────────────
+const ROOT_OUT = path.join(OUT_BASE, '..');
+const ORIGIN = 'https://prospervalleyelectric.com';
+const today = new Date().toISOString().slice(0, 10);
+// Static + guide pages (priority hints: home highest, then hubs/guides, then locations)
+const staticUrls = [
+  { loc: '/', priority: '1.0' },
+  { loc: '/service-areas', priority: '0.8' },
+  { loc: '/guides/generator-sizing-vermont', priority: '0.7' },
+  { loc: '/guides/panel-upgrade-cost-vermont', priority: '0.7' },
+];
+const urlEntries = [
+  ...staticUrls,
+  ...pageUrls.map(loc => ({ loc, priority: '0.6' })),
+].map(u =>
+  `  <url>\n    <loc>${ORIGIN}${u.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${u.priority}</priority>\n  </url>`
+).join('\n');
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlEntries}\n</urlset>\n`;
+fs.writeFileSync(path.join(ROOT_OUT, 'sitemap.xml'), sitemap, 'utf8');
+console.log(`\n  ✓ sitemap.xml (${staticUrls.length + pageUrls.length} URLs)`);
 
 console.log(`\nDone: ${generated} pages generated, ${errors} errors.`);

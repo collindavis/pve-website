@@ -1,0 +1,5 @@
+# Prosper Valley Electric — https://prospervalleyelectric.com
+User-agent: *
+Allow: /
+
+Sitemap: https://prospervalleyelectric.com/sitemap.xml

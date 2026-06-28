@@ -1,0 +1,9 @@
+# Files that should not be publicly served by Cloudflare Workers Assets
+build-seo-pages.js
+add-towns.js
+wrangler.jsonc
+.assetsignore
+.gitignore
+.claude
+node_modules
+*.md
