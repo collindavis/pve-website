@@ -1587,6 +1587,119 @@
   .fade-up:nth-child(4) { transition-delay: 0.26s; }
   .fade-up:nth-child(5) { transition-delay: 0.34s; }
   .fade-up:nth-child(6) { transition-delay: 0.42s; }
+
+  /* ══════════════════════════════════════════════════════
+     OUR WORK / GALLERY
+  ══════════════════════════════════════════════════════ */
+  .gallery-section {
+    padding: 64px 32px 80px;
+    background: var(--charcoal);
+    min-height: 60vh;
+  }
+  .gallery-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 48px;
+    justify-content: center;
+  }
+  .gallery-filter {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1.5px solid var(--charcoal-border);
+    background: transparent;
+    color: var(--gray-400);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .gallery-filter:hover { border-color: var(--orange); color: var(--orange); }
+  .gallery-filter.active { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--charcoal-light);
+  }
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-item video.gallery-thumb {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .gallery-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.28);
+    transition: background 0.2s;
+  }
+  .gallery-item:hover .gallery-play-overlay { background: rgba(0,0,0,0.48); }
+  .gallery-play-overlay svg { width: 56px; height: 56px; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.55)); }
+  .gallery-item.hidden { display: none; }
+
+  /* Lightbox */
+  .gallery-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-lightbox.open { display: flex; }
+  .lb-media { max-width: 90vw; max-height: 85vh; object-fit: contain; display: block; border-radius: var(--radius); }
+  .lb-close {
+    position: absolute; top: 18px; right: 22px;
+    background: none; border: none; color: white;
+    font-size: 2rem; cursor: pointer; opacity: 0.65;
+    transition: opacity 0.18s; z-index: 9001; padding: 8px; line-height: 1;
+  }
+  .lb-close:hover { opacity: 1; }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.08); border: none; color: white;
+    font-size: 1.5rem; cursor: pointer; padding: 18px 16px;
+    border-radius: var(--radius); opacity: 0.65;
+    transition: opacity 0.18s, background 0.18s; z-index: 9001;
+  }
+  .lb-nav:hover { opacity: 1; background: rgba(255,255,255,0.16); }
+  .lb-prev { left: 14px; }
+  .lb-next { right: 14px; }
+  .lb-counter {
+    position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.45); font-family: var(--font-display);
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .gallery-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+    .gallery-section { padding: 48px 16px 64px; }
+    .gallery-filters { gap: 7px; margin-bottom: 32px; }
+    .gallery-filter { font-size: 0.75rem; padding: 8px 13px; }
+    .lb-nav { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -1607,6 +1720,7 @@
         <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
         <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
         <li><a href="/service-areas">Service Areas</a></li>
+        <li><a onclick="showPage('work')" id="nav-work">Our Work</a></li>
         <li><a onclick="showPage('about')" id="nav-about">About</a></li>
       </ul>
       <a onclick="showPage('contact')" id="nav-contact" class="nav-cta">
@@ -1626,6 +1740,7 @@
   <a onclick="showPage('home');closeMenu()">Home</a>
   <a onclick="showPage('services');closeMenu()">Services</a>
   <a href="/service-areas">Service Areas</a>
+  <a onclick="showPage('work');closeMenu()">Our Work</a>
   <a onclick="showPage('about');closeMenu()">About</a>
   <a onclick="showPage('contact');closeMenu()">Request Estimate</a>
 </div>
@@ -2417,6 +2532,69 @@
   </footer>
 </div>
 
+<!-- ─── OUR WORK PAGE ─────────────────────────────────────────── -->
+<div class="page" id="page-work">
+  <div class="page-hero">
+    <h1>Our <span style="color:var(--orange)">Work</span></h1>
+    <p>Real projects across Vermont &amp; New Hampshire. Browse our portfolio by category.</p>
+  </div>
+
+  <section class="gallery-section">
+    <div class="gallery-filters">
+      <button class="gallery-filter active" data-filter="all" onclick="filterGallery('all',this)">All</button>
+      <button class="gallery-filter" data-filter="commercial-lighting" onclick="filterGallery('commercial-lighting',this)">Commercial Lighting</button>
+      <button class="gallery-filter" data-filter="generator-installation" onclick="filterGallery('generator-installation',this)">Generator Installation</button>
+      <button class="gallery-filter" data-filter="panel-upgrade" onclick="filterGallery('panel-upgrade',this)">Panel Upgrade</button>
+      <button class="gallery-filter" data-filter="residential-lighting" onclick="filterGallery('residential-lighting',this)">Residential Lighting</button>
+      <button class="gallery-filter" data-filter="residential-wiring" onclick="filterGallery('residential-wiring',this)">Residential Wiring</button>
+      <button class="gallery-filter" data-filter="utility-service" onclick="filterGallery('utility-service',this)">Utility Service</button>
+      <button class="gallery-filter" data-filter="vehicles" onclick="filterGallery('vehicles',this)">Vehicles</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="gallery-lightbox" id="galleryLightbox" onclick="closeLightbox()">
+    <button class="lb-close" onclick="closeLightbox()">&#x2715;</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1,event)">&#x276E;</button>
+    <button class="lb-nav lb-next" onclick="lbNav(1,event)">&#x276F;</button>
+    <div id="lbContent" onclick="event.stopPropagation()"></div>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+
+  <div class="cta-banner">
+    <h2>Ready to Start Your Project?</h2>
+    <p>Serving Vermont &amp; New Hampshire with honest, dependable electrical work.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Get a Free Estimate <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="font-family:var(--font-display);font-weight:800;font-size:1.2rem;letter-spacing:0.06em;text-transform:uppercase;color:white">Prosper Valley <span style="color:var(--orange)">Electric</span></div>
+        <p>Locally owned and operated electrical contractor serving Vermont and New Hampshire. Est. 2020.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a onclick="showPage('services')">New Construction</a>
+        <a onclick="showPage('services')">Remodels</a>
+        <a onclick="showPage('services')">Generators</a>
+        <a onclick="showPage('services')">EV Chargers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('about')">About</a>
+        <a onclick="showPage('contact')">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span style="color:rgba(255,255,255,0.28)">© 2025 Prosper Valley Electric.</span>
+      <span>Vermont &amp; New Hampshire</span>
+    </div>
+  </footer>
+</div>
+
 <!-- ─── MOBILE STICKY BAR ────────────────────────────────────── -->
 <div class="sticky-bar" id="sticky-bar">
   <a class="sticky-call" href="tel:+18022349636">
@@ -2438,6 +2616,7 @@
     const navLink = document.getElementById('nav-' + name);
     if (navLink) navLink.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (name === 'work') buildGallery();
     observeFadeUps();
   }
 
@@ -2491,6 +2670,203 @@
       alert('Something went wrong. Please try again or call us directly.');
     }
   }
+
+  // ── GALLERY ─────────────────────────────────────────────────
+  const GALLERY_DATA = {
+    'commercial-lighting': { label: 'Commercial Lighting', files: [
+      ['PVE_Commercial_Lighting_0563.jpeg','image'],
+      ['PVE_Commercial_Lighting_0564.jpeg','image'],
+      ['PVE_Commercial_Lighting_0565.jpeg','image'],
+      ['PVE_Commercial_Lighting_2192.jpeg','image'],
+      ['PVE_Commercial_Lighting_2193.jpeg','image'],
+      ['PVE_Commercial_Lighting_3994.jpeg','image'],
+      ['PVE_Commercial_Lighting_3995.jpeg','image'],
+      ['PVE_Commercial_Lighting_4008.jpeg','image'],
+    ]},
+    'generator-installation': { label: 'Generator Installation', files: [
+      ['PVE_Generator_Installation_3898.jpeg','image'],
+      ['PVE_Generator_Installation_3899.jpeg','image'],
+      ['PVE_Generator_Installation_3900.jpeg','image'],
+      ['PVE_Generator_Installation_3901.jpeg','image'],
+      ['PVE_Generator_Installation_3903.jpeg','image'],
+      ['PVE_Generator_Installation_3904.jpeg','image'],
+      ['PVE_Generator_Installation_3928.jpeg','image'],
+      ['PVE_Generator_Installation_3929.mp4','video'],
+      ['PVE_Generator_Installation_3930.jpeg','image'],
+      ['PVE_Generator_Installation_3931.jpeg','image'],
+      ['PVE_Generator_Installation_3932.jpeg','image'],
+      ['PVE_Generator_Installation_3934.mp4','video'],
+      ['PVE_Generator_Installation_3935.jpeg','image'],
+      ['PVE_Generator_Installation_3937.jpeg','image'],
+      ['PVE_Generator_Installation_3940.jpeg','image'],
+    ]},
+    'panel-upgrade': { label: 'Panel Upgrade', files: [
+      ['PVE_Panel_Upgrade_2594.jpeg','image'],
+    ]},
+    'residential-lighting': { label: 'Residential Lighting', files: [
+      ['PVE_Residential_Lighting_0154.jpeg','image'],
+      ['PVE_Residential_Lighting_0157.mp4','video'],
+      ['PVE_Residential_Lighting_0455.jpeg','image'],
+      ['PVE_Residential_Lighting_0456.jpeg','image'],
+      ['PVE_Residential_Lighting_132EBA4F-6B71-4AB1-9A65-AFEB4AC677CA.jpeg','image'],
+      ['PVE_Residential_Lighting_1750DB3F-3D90-4D72-AA7F-98BC92363434.jpeg','image'],
+      ['PVE_Residential_Lighting_1967.jpeg','image'],
+      ['PVE_Residential_Lighting_1968.jpeg','image'],
+      ['PVE_Residential_Lighting_3169.jpeg','image'],
+      ['PVE_Residential_Lighting_3181.jpeg','image'],
+      ['PVE_Residential_Lighting_3182.jpeg','image'],
+      ['PVE_Residential_Lighting_3183.jpeg','image'],
+      ['PVE_Residential_Lighting_3243.jpeg','image'],
+      ['PVE_Residential_Lighting_325EBE63-2B10-4E40-8C3E-27BC372693C7.jpeg','image'],
+      ['PVE_Residential_Lighting_3516.jpeg','image'],
+      ['PVE_Residential_Lighting_3771.jpeg','image'],
+      ['PVE_Residential_Lighting_3888.jpeg','image'],
+      ['PVE_Residential_Lighting_3889.jpeg','image'],
+      ['PVE_Residential_Lighting_3890.jpeg','image'],
+      ['PVE_Residential_Lighting_3891.jpeg','image'],
+      ['PVE_Residential_Lighting_3892.jpeg','image'],
+      ['PVE_Residential_Lighting_3893.jpeg','image'],
+      ['PVE_Residential_Lighting_3894.jpeg','image'],
+      ['PVE_Residential_Lighting_3895.jpeg','image'],
+      ['PVE_Residential_Lighting_3896.jpeg','image'],
+      ['PVE_Residential_Lighting_4431.jpeg','image'],
+      ['PVE_Residential_Lighting_4432.jpeg','image'],
+      ['PVE_Residential_Lighting_4441.jpeg','image'],
+      ['PVE_Residential_Lighting_4442.jpeg','image'],
+      ['PVE_Residential_Lighting_4443.jpeg','image'],
+      ['PVE_Residential_Lighting_4444.jpeg','image'],
+      ['PVE_Residential_Lighting_4445.jpeg','image'],
+      ['PVE_Residential_Lighting_4446.jpeg','image'],
+      ['PVE_Residential_Lighting_4447.jpeg','image'],
+      ['PVE_Residential_Lighting_6078.jpeg','image'],
+      ['PVE_Residential_Lighting_6F1709A6-FA39-4DD4-AA2C-1F71A4228928.jpeg','image'],
+      ['PVE_Residential_Lighting_72BABD9A-42A3-498A-9C69-8EE576539042.jpeg','image'],
+      ['PVE_Residential_Lighting_81D883FF-4AF6-4532-BFC3-A02B34410408.jpeg','image'],
+    ]},
+    'residential-wiring': { label: 'Residential Wiring', files: [
+      ['PVE_Residential_Wiring_3876.jpeg','image'],
+      ['PVE_Residential_Wiring_3877.jpeg','image'],
+      ['PVE_Residential_Wiring_3878.jpeg','image'],
+      ['PVE_Residential_Wiring_3993.jpeg','image'],
+      ['PVE_Residential_Wiring_4034.jpeg','image'],
+      ['PVE_Residential_Wiring_4114.jpeg','image'],
+      ['PVE_Residential_Wiring_4115.jpeg','image'],
+      ['PVE_Residential_Wiring_4149.jpeg','image'],
+    ]},
+    'utility-service': { label: 'Utility Service', files: [
+      ['PVE_Utility_Service_0786.jpeg','image'],
+      ['PVE_Utility_Service_0787.jpeg','image'],
+      ['PVE_Utility_Service_3052057776726529541.jpeg','image'],
+      ['PVE_Utility_Service_3463.jpeg','image'],
+      ['PVE_Utility_Service_3464.jpeg','image'],
+      ['PVE_Utility_Service_3579.jpeg','image'],
+      ['PVE_Utility_Service_3580.jpeg','image'],
+      ['PVE_Utility_Service_3581.jpeg','image'],
+      ['PVE_Utility_Service_3582.jpeg','image'],
+      ['PVE_Utility_Service_3583.jpeg','image'],
+      ['PVE_Utility_Service_3584.jpeg','image'],
+      ['PVE_Utility_Service_3770.jpeg','image'],
+      ['PVE_Utility_Service_3845.jpeg','image'],
+      ['PVE_Utility_Service_3846.jpeg','image'],
+      ['PVE_Utility_Service_3847.jpeg','image'],
+      ['PVE_Utility_Service_3848.jpeg','image'],
+      ['PVE_Utility_Service_8533320231996107720.jpeg','image'],
+      ['PVE_Utility_Service_8586648442695759870.jpeg','image'],
+      ['PVE_Utility_Service_9038453415519188625.jpeg','image'],
+    ]},
+    'vehicles': { label: 'Vehicles', files: [
+      ['PVE_Vehicles_1056.jpeg','image'],
+      ['PVE_Vehicles_1058.jpeg','image'],
+      ['PVE_Vehicles_4524.jpeg','image'],
+      ['PVE_Vehicles_4525.jpeg','image'],
+    ]},
+  };
+
+  let lbItems = [], lbIndex = 0, galleryBuilt = false;
+
+  function buildGallery() {
+    if (galleryBuilt) return;
+    galleryBuilt = true;
+    const grid = document.getElementById('galleryGrid');
+    grid.innerHTML = '';
+    Object.entries(GALLERY_DATA).forEach(([catId, cat]) => {
+      cat.files.forEach(([file, type]) => {
+        const src = `gallery/${catId}/${file}`;
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.dataset.cat = catId;
+        item.dataset.type = type;
+        item.dataset.src = src;
+        if (type === 'image') {
+          item.innerHTML = `<img src="${src}" loading="lazy" alt="${cat.label}">`;
+        } else {
+          item.innerHTML = `
+            <video class="gallery-thumb" preload="metadata" muted playsinline>
+              <source src="${src}" type="video/mp4">
+            </video>
+            <div class="gallery-play-overlay">
+              <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="29" fill="rgba(232,130,12,0.88)" stroke="white" stroke-width="1.5"/>
+                <path d="M25 20l16 10-16 10V20z" fill="white"/>
+              </svg>
+            </div>`;
+        }
+        item.addEventListener('click', () => openLightbox(item));
+        grid.appendChild(item);
+      });
+    });
+  }
+
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#galleryGrid .gallery-item').forEach(item => {
+      item.classList.toggle('hidden', cat !== 'all' && item.dataset.cat !== cat);
+    });
+  }
+
+  function openLightbox(clickedItem) {
+    lbItems = Array.from(document.querySelectorAll('#galleryGrid .gallery-item:not(.hidden)'));
+    lbIndex = lbItems.indexOf(clickedItem);
+    renderLbItem(lbIndex);
+    document.getElementById('galleryLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('galleryLightbox');
+    lb.classList.remove('open');
+    lb.querySelectorAll('video').forEach(v => v.pause());
+    document.body.style.overflow = '';
+  }
+
+  function renderLbItem(idx) {
+    if (idx < 0) idx = lbItems.length - 1;
+    if (idx >= lbItems.length) idx = 0;
+    lbIndex = idx;
+    const item = lbItems[idx];
+    const content = document.getElementById('lbContent');
+    content.querySelectorAll('video').forEach(v => v.pause());
+    if (item.dataset.type === 'image') {
+      content.innerHTML = `<img class="lb-media" src="${item.dataset.src}" alt="">`;
+    } else {
+      content.innerHTML = `<video class="lb-media" controls autoplay playsinline><source src="${item.dataset.src}" type="video/mp4"></video>`;
+    }
+    document.getElementById('lbCounter').textContent = `${idx + 1} / ${lbItems.length}`;
+  }
+
+  function lbNav(dir, e) {
+    e.stopPropagation();
+    renderLbItem(lbIndex + dir);
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('galleryLightbox');
+    if (!lb || !lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') renderLbItem(lbIndex + 1);
+    else if (e.key === 'ArrowLeft') renderLbItem(lbIndex - 1);
+  });
 
   document.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.replace('#', '');
