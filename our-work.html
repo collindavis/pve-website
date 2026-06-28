@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Work | Electrical Projects in Vermont &amp; New Hampshire | Prosper Valley Electric</title>
+<meta name="description" content="Browse our portfolio of electrical projects across Vermont &amp; New Hampshire — commercial lighting, generator installations, panel upgrades, residential wiring, and more.">
+<link rel="canonical" href="https://prospervalleyelectric.com/our-work">
+<meta property="og:title" content="Our Work | Electrical Projects in Vermont &amp; New Hampshire | Prosper Valley Electric">
+<meta property="og:description" content="Browse our portfolio of electrical projects across Vermont &amp; New Hampshire — commercial lighting, generator installations, panel upgrades, residential wiring, and more.">
+<meta property="og:url" content="https://prospervalleyelectric.com/our-work">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <img class="nav-logo-img" src="/pve-circle-logo.jpg" alt="Prosper Valley Electric">
+      <div class="nav-logo-text">Prosper Valley<span>Electric</span></div>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/service-areas">Service Areas</a></li>
+        <li><a href="/our-work" class="active">Our Work</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+      <a href="/contact" class="nav-cta">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-3-3v6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Request Estimate
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/services">Services</a>
+  <a href="/service-areas">Service Areas</a>
+  <a href="/our-work">Our Work</a>
+  <a href="/about">About</a>
+  <a href="/contact">Request Estimate</a>
+</div>
+
+<div class="page-hero">
+  <h1>Our <span style="color:var(--orange)">Work</span></h1>
+  <p>Real projects across Vermont &amp; New Hampshire. Browse our portfolio by category.</p>
+</div>
+
+<section class="gallery-section">
+  <div class="gallery-filters">
+    <button class="gallery-filter active" data-filter="all" onclick="filterGallery('all',this)">All</button>
+    <button class="gallery-filter" data-filter="commercial-lighting" onclick="filterGallery('commercial-lighting',this)">Commercial Lighting</button>
+    <button class="gallery-filter" data-filter="generator-installation" onclick="filterGallery('generator-installation',this)">Generator Installation</button>
+    <button class="gallery-filter" data-filter="panel-upgrade" onclick="filterGallery('panel-upgrade',this)">Panel Upgrade</button>
+    <button class="gallery-filter" data-filter="residential-lighting" onclick="filterGallery('residential-lighting',this)">Residential Lighting</button>
+    <button class="gallery-filter" data-filter="residential-wiring" onclick="filterGallery('residential-wiring',this)">Residential Wiring</button>
+    <button class="gallery-filter" data-filter="utility-service" onclick="filterGallery('utility-service',this)">Utility Service</button>
+    <button class="gallery-filter" data-filter="vehicles" onclick="filterGallery('vehicles',this)">Vehicles</button>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- Lightbox -->
+<div class="gallery-lightbox" id="galleryLightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">&#x2715;</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1,event)">&#x276E;</button>
+  <button class="lb-nav lb-next" onclick="lbNav(1,event)">&#x276F;</button>
+  <div id="lbContent" onclick="event.stopPropagation()"></div>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<div class="cta-banner">
+  <h2>Ready to Start Your Project?</h2>
+  <p>Serving Vermont &amp; New Hampshire with honest, dependable electrical work.</p>
+  <a class="btn-dark" href="/contact">Get a Free Estimate <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="/" style="display:inline-flex">
+        <img class="nav-logo-img" src="/pve-circle-logo.jpg" alt="Prosper Valley Electric">
+        <div class="nav-logo-text" style="color:white">Prosper Valley<span style="color:var(--orange)">Electric</span></div>
+      </a>
+      <p>Locally owned and operated electrical contractor serving Vermont and New Hampshire. Est. 2020.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="/services">New Construction Wiring</a>
+      <a href="/services">Remodels &amp; Renovations</a>
+      <a href="/services">Generator Installation</a>
+      <a href="/services">EV Charger Installation</a>
+      <a href="/services">Service Upgrades</a>
+      <a href="/services">Lighting Installation</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/">Home</a>
+      <a href="/about">About Us</a>
+      <a href="/our-work">Our Work</a>
+      <a href="/contact">Contact</a>
+      <a href="/contact">Request Estimate</a>
+      <a href="/service-areas">Service Areas</a>
+      <h4 style="margin-top:24px">Contact</h4>
+      <a href="tel:+18022349636">(802) 234-9636</a>
+      <a href="mailto:prospervalleyelectric@gmail.com">prospervalleyelectric@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span style="color:rgba(255,255,255,0.28)">© 2025 Prosper Valley Electric. All rights reserved.</span>
+  </div>
+</footer>
+
+<div class="sticky-bar" id="sticky-bar">
+  <a class="sticky-call" href="tel:+18022349636">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+    (802) 234-9636
+  </a>
+  <a class="sticky-estimate" href="/contact">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-3-3v6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Get Estimate
+  </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  const GALLERY_DATA = {
+    'commercial-lighting': { label: 'Commercial Lighting', files: [
+      ['PVE_Commercial_Lighting_0563.jpeg','image'],
+      ['PVE_Commercial_Lighting_0564.jpeg','image'],
+      ['PVE_Commercial_Lighting_0565.jpeg','image'],
+      ['PVE_Commercial_Lighting_2192.jpeg','image'],
+      ['PVE_Commercial_Lighting_2193.jpeg','image'],
+      ['PVE_Commercial_Lighting_3994.jpeg','image'],
+      ['PVE_Commercial_Lighting_3995.jpeg','image'],
+      ['PVE_Commercial_Lighting_4008.jpeg','image'],
+    ]},
+    'generator-installation': { label: 'Generator Installation', files: [
+      ['PVE_Generator_Installation_3898.jpeg','image'],
+      ['PVE_Generator_Installation_3899.jpeg','image'],
+      ['PVE_Generator_Installation_3900.jpeg','image'],
+      ['PVE_Generator_Installation_3901.jpeg','image'],
+      ['PVE_Generator_Installation_3903.jpeg','image'],
+      ['PVE_Generator_Installation_3904.jpeg','image'],
+      ['PVE_Generator_Installation_3928.jpeg','image'],
+      ['PVE_Generator_Installation_3929.mp4','video'],
+      ['PVE_Generator_Installation_3930.jpeg','image'],
+      ['PVE_Generator_Installation_3931.jpeg','image'],
+      ['PVE_Generator_Installation_3932.jpeg','image'],
+      ['PVE_Generator_Installation_3934.mp4','video'],
+      ['PVE_Generator_Installation_3935.jpeg','image'],
+      ['PVE_Generator_Installation_3937.jpeg','image'],
+      ['PVE_Generator_Installation_3940.jpeg','image'],
+    ]},
+    'panel-upgrade': { label: 'Panel Upgrade', files: [
+      ['PVE_Panel_Upgrade_2594.jpeg','image'],
+    ]},
+    'residential-lighting': { label: 'Residential Lighting', files: [
+      ['PVE_Residential_Lighting_0154.jpeg','image'],
+      ['PVE_Residential_Lighting_0157.mp4','video'],
+      ['PVE_Residential_Lighting_0455.jpeg','image'],
+      ['PVE_Residential_Lighting_0456.jpeg','image'],
+      ['PVE_Residential_Lighting_132EBA4F-6B71-4AB1-9A65-AFEB4AC677CA.jpeg','image'],
+      ['PVE_Residential_Lighting_1750DB3F-3D90-4D72-AA7F-98BC92363434.jpeg','image'],
+      ['PVE_Residential_Lighting_1967.jpeg','image'],
+      ['PVE_Residential_Lighting_1968.jpeg','image'],
+      ['PVE_Residential_Lighting_3169.jpeg','image'],
+      ['PVE_Residential_Lighting_3181.jpeg','image'],
+      ['PVE_Residential_Lighting_3182.jpeg','image'],
+      ['PVE_Residential_Lighting_3183.jpeg','image'],
+      ['PVE_Residential_Lighting_3243.jpeg','image'],
+      ['PVE_Residential_Lighting_325EBE63-2B10-4E40-8C3E-27BC372693C7.jpeg','image'],
+      ['PVE_Residential_Lighting_3516.jpeg','image'],
+      ['PVE_Residential_Lighting_3771.jpeg','image'],
+      ['PVE_Residential_Lighting_3888.jpeg','image'],
+      ['PVE_Residential_Lighting_3889.jpeg','image'],
+      ['PVE_Residential_Lighting_3890.jpeg','image'],
+      ['PVE_Residential_Lighting_3891.jpeg','image'],
+      ['PVE_Residential_Lighting_3892.jpeg','image'],
+      ['PVE_Residential_Lighting_3893.jpeg','image'],
+      ['PVE_Residential_Lighting_3894.jpeg','image'],
+      ['PVE_Residential_Lighting_3895.jpeg','image'],
+      ['PVE_Residential_Lighting_3896.jpeg','image'],
+      ['PVE_Residential_Lighting_4431.jpeg','image'],
+      ['PVE_Residential_Lighting_4432.jpeg','image'],
+      ['PVE_Residential_Lighting_4441.jpeg','image'],
+      ['PVE_Residential_Lighting_4442.jpeg','image'],
+      ['PVE_Residential_Lighting_4443.jpeg','image'],
+      ['PVE_Residential_Lighting_4444.jpeg','image'],
+      ['PVE_Residential_Lighting_4445.jpeg','image'],
+      ['PVE_Residential_Lighting_4446.jpeg','image'],
+      ['PVE_Residential_Lighting_4447.jpeg','image'],
+      ['PVE_Residential_Lighting_6078.jpeg','image'],
+      ['PVE_Residential_Lighting_6F1709A6-FA39-4DD4-AA2C-1F71A4228928.jpeg','image'],
+      ['PVE_Residential_Lighting_72BABD9A-42A3-498A-9C69-8EE576539042.jpeg','image'],
+      ['PVE_Residential_Lighting_81D883FF-4AF6-4532-BFC3-A02B34410408.jpeg','image'],
+    ]},
+    'residential-wiring': { label: 'Residential Wiring', files: [
+      ['PVE_Residential_Wiring_3876.jpeg','image'],
+      ['PVE_Residential_Wiring_3877.jpeg','image'],
+      ['PVE_Residential_Wiring_3878.jpeg','image'],
+      ['PVE_Residential_Wiring_3993.jpeg','image'],
+      ['PVE_Residential_Wiring_4034.jpeg','image'],
+      ['PVE_Residential_Wiring_4114.jpeg','image'],
+      ['PVE_Residential_Wiring_4115.jpeg','image'],
+      ['PVE_Residential_Wiring_4149.jpeg','image'],
+    ]},
+    'utility-service': { label: 'Utility Service', files: [
+      ['PVE_Utility_Service_0786.jpeg','image'],
+      ['PVE_Utility_Service_0787.jpeg','image'],
+      ['PVE_Utility_Service_3052057776726529541.jpeg','image'],
+      ['PVE_Utility_Service_3463.jpeg','image'],
+      ['PVE_Utility_Service_3464.jpeg','image'],
+      ['PVE_Utility_Service_3579.jpeg','image'],
+      ['PVE_Utility_Service_3580.jpeg','image'],
+      ['PVE_Utility_Service_3581.jpeg','image'],
+      ['PVE_Utility_Service_3582.jpeg','image'],
+      ['PVE_Utility_Service_3583.jpeg','image'],
+      ['PVE_Utility_Service_3584.jpeg','image'],
+      ['PVE_Utility_Service_3770.jpeg','image'],
+      ['PVE_Utility_Service_3845.jpeg','image'],
+      ['PVE_Utility_Service_3846.jpeg','image'],
+      ['PVE_Utility_Service_3847.jpeg','image'],
+      ['PVE_Utility_Service_3848.jpeg','image'],
+      ['PVE_Utility_Service_8533320231996107720.jpeg','image'],
+      ['PVE_Utility_Service_8586648442695759870.jpeg','image'],
+      ['PVE_Utility_Service_9038453415519188625.jpeg','image'],
+    ]},
+    'vehicles': { label: 'Vehicles', files: [
+      ['PVE_Vehicles_1056.jpeg','image'],
+      ['PVE_Vehicles_1058.jpeg','image'],
+      ['PVE_Vehicles_4524.jpeg','image'],
+      ['PVE_Vehicles_4525.jpeg','image'],
+    ]},
+  };
+
+  let lbItems = [], lbIndex = 0;
+
+  function buildGallery() {
+    const grid = document.getElementById('galleryGrid');
+    grid.innerHTML = '';
+    Object.entries(GALLERY_DATA).forEach(([catId, cat]) => {
+      cat.files.forEach(([file, type]) => {
+        const src = `gallery/${catId}/${file}`;
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.dataset.cat = catId;
+        item.dataset.type = type;
+        item.dataset.src = src;
+        if (type === 'image') {
+          item.innerHTML = `<img src="${src}" loading="lazy" alt="${cat.label}">`;
+        } else {
+          item.innerHTML = `
+            <video class="gallery-thumb" preload="metadata" muted playsinline>
+              <source src="${src}" type="video/mp4">
+            </video>
+            <div class="gallery-play-overlay">
+              <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="29" fill="rgba(232,130,12,0.88)" stroke="white" stroke-width="1.5"/>
+                <path d="M25 20l16 10-16 10V20z" fill="white"/>
+              </svg>
+            </div>`;
+        }
+        item.addEventListener('click', () => openLightbox(item));
+        grid.appendChild(item);
+      });
+    });
+  }
+
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#galleryGrid .gallery-item').forEach(item => {
+      item.classList.toggle('hidden', cat !== 'all' && item.dataset.cat !== cat);
+    });
+  }
+
+  function openLightbox(clickedItem) {
+    lbItems = Array.from(document.querySelectorAll('#galleryGrid .gallery-item:not(.hidden)'));
+    lbIndex = lbItems.indexOf(clickedItem);
+    renderLbItem(lbIndex);
+    document.getElementById('galleryLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('galleryLightbox');
+    lb.classList.remove('open');
+    lb.querySelectorAll('video').forEach(v => v.pause());
+    document.body.style.overflow = '';
+  }
+
+  function renderLbItem(idx) {
+    if (idx < 0) idx = lbItems.length - 1;
+    if (idx >= lbItems.length) idx = 0;
+    lbIndex = idx;
+    const item = lbItems[idx];
+    const content = document.getElementById('lbContent');
+    content.querySelectorAll('video').forEach(v => v.pause());
+    if (item.dataset.type === 'image') {
+      content.innerHTML = `<img class="lb-media" src="${item.dataset.src}" alt="">`;
+    } else {
+      content.innerHTML = `<video class="lb-media" controls autoplay playsinline><source src="${item.dataset.src}" type="video/mp4"></video>`;
+    }
+    document.getElementById('lbCounter').textContent = `${idx + 1} / ${lbItems.length}`;
+  }
+
+  function lbNav(dir, e) {
+    e.stopPropagation();
+    renderLbItem(lbIndex + dir);
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('galleryLightbox');
+    if (!lb || !lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') renderLbItem(lbIndex + 1);
+    else if (e.key === 'ArrowLeft') renderLbItem(lbIndex - 1);
+  });
+
+  document.addEventListener('DOMContentLoaded', buildGallery);
+</script>
+</body>
+</html>
