@@ -45,7 +45,7 @@ const GUIDES = [
     faq: [
       { q: 'Can I size a generator myself?', a: 'You can get a rough idea from the ranges above, but the surge load from a well pump and the interaction of multiple 240V appliances make a real load analysis worthwhile. It is the difference between a system that carries your home and one that nuisance-trips during an outage.' },
       { q: 'Is a bigger generator always better?', a: 'No. An oversized generator costs more upfront, burns more fuel, and can run inefficiently under light loads. The goal is a unit matched to your actual loads, often with load management rather than brute-force size.' },
-      { q: 'Do I need a permit for a standby generator in Vermont?', a: 'Yes. The transfer switch and wiring require an electrical permit, and the work is inspected. We handle the permitting and inspection as part of the installation.' },
+      { q: 'Are you licensed to do generator installations in Vermont?', a: 'Yes. Prosper Valley Electric is fully licensed and insured to perform electrical work throughout Vermont. We follow National Electrical Code requirements for the transfer switch, wiring, and final inspection.' },
       { q: 'What about a second home or camp that sits empty?', a: 'For seasonal and vacation properties, a standby generator with remote monitoring is especially valuable — you get notified of outages and unit status even when you are not there. This is common for ski-area and lakeside properties in our service area.' },
     ],
     relatedLabel: 'Generator Installation',
@@ -55,7 +55,7 @@ const GUIDES = [
   {
     slug: 'panel-upgrade-cost-vermont',
     title: 'What Does a 200-Amp Panel Upgrade Cost in Vermont? (2026) | Prosper Valley Electric',
-    description: 'A plain-English look at electrical panel upgrade costs in Vermont — typical price range for a 200-amp upgrade, what drives the price, signs you need one, and how permits work.',
+    description: 'A plain-English look at electrical panel upgrade costs in Vermont — typical price range for a 200-amp upgrade, what drives the price, and signs you need one.',
     h1: 'What Does a 200-Amp Panel Upgrade Cost in Vermont?',
     intro: [
       "If your home still runs on a 60- or 100-amp panel — or a fuse box — you may not be able to safely add an EV charger, heat pump, or addition without upgrading first. A panel upgrade is one of the highest-value electrical investments a Vermont homeowner can make, and it is usually a one-day job.",
@@ -78,14 +78,14 @@ const GUIDES = [
         "**You're adding significant load** — EV charger, hot tub, heat pump, electric range, or an addition.",
         '**The home is 40+ years old** with its original 60- or 100-amp service.',
       ]},
-      { h: 'Permits and inspection in Vermont', body: [
-        'Panel upgrades require an electrical permit in Vermont, and the finished work is inspected. We handle the permit filing, coordinate the utility disconnect and reconnect, and provide documentation you can give your insurance company. Power is typically off for 4–6 hours during the swap.',
+      { h: 'Licensed, insured, and inspected', body: [
+        'Prosper Valley Electric is fully licensed and insured to perform electrical work throughout Vermont. We coordinate the utility disconnect and reconnect, and provide documentation you can give your insurance company. Power is typically off for 4–6 hours during the swap.',
       ]},
     ],
     faq: [
       { q: 'How long does a panel upgrade take?', a: 'Most are completed in a single day, with power off for about 4–6 hours during the swap. We coordinate the utility disconnect and reconnect so you are not managing that yourself.' },
       { q: 'Will a panel upgrade increase my home value?', a: 'Generally yes. A modern 200-amp panel is a selling point, is required by many insurers, and opens the door to EV chargers, heat pumps, and other upgrades buyers look for.' },
-      { q: 'Can I add an EV charger at the same time?', a: 'Yes, and it is more efficient to do both at once. We can quote the combined project and coordinate both permits together.' },
+      { q: 'Can I add an EV charger at the same time?', a: 'Yes, and it is more efficient to do both at once. We can quote the combined project and coordinate both projects together.' },
       { q: 'Why is my quote higher than the base range?', a: 'Usually service-entrance work (new cable, meter socket, or mast), a relocated panel, or difficult access. A written estimate itemizes exactly what is driving the price.' },
     ],
     relatedLabel: 'Panel Upgrades',
